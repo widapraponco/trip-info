@@ -1,0 +1,110 @@
+{
+  "name": "lloricode/lumen-boilerplate",
+  "description": "The Lumen Boilerplate Project.",
+  "homepage": "https://github.com/lloricode/lumen-boilerplate",
+  "keywords": [
+    "framework",
+    "laravel",
+    "lumen",
+    "boilerplate"
+  ],
+  "support": {
+    "issues": "https://github.com/lloricode/lumen-boilerplate/issues",
+    "source": "https://github.com/lloricode/lumen-boilerplate"
+  },
+  "authors": [
+    {
+      "name": "Lloric Mayuga Garcia",
+      "email": "lloricode@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "license": "MIT",
+  "type": "project",
+  "require": {
+    "php": "^8.1.11",
+    "ext-intl": "*",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "composer-runtime-api": "^2.0",
+    "coderello/laravel-passport-social-grant": "^3.0.4",
+    "darkaonline/swagger-lume": "^9.0",
+    "dusterio/lumen-passport": "^0.3.6",
+    "flipbox/lumen-generator": "^9.1",
+    "graham-campbell/throttle": "^9.0",
+    "illuminate/mail": "^9.35",
+    "laravel/lumen-framework": "^9.1.3",
+    "laravel/socialite": "^5.5",
+    "rap2hpoutre/laravel-log-viewer": "^2.2",
+    "spatie/laravel-fractal": "^6.0",
+    "spatie/laravel-permission": "^5.5",
+    "spatie/laravel-query-builder": "^5.0",
+    "spatie/laravel-sluggable": "^3.4"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "^2.12",
+    "beyondcode/tinkerwell-helper": "^1.4",
+    "doctrine/dbal": "^3.4",
+    "fakerphp/faker": "^1.20",
+    "laravel/pint": "^1.2",
+    "mockery/mockery": "^1.5",
+    "pestphp/pest": "^1.22",
+    "spatie/laravel-ray": "^1.31",
+    "spatie/x-ray": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Domain\\": "domain/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "clear-all": [
+      "@php artisan clear-compiled --ansi",
+      "@php artisan permission:cache-reset --ansi",
+      "@php artisan cache:clear --ansi",
+      "@php -r \"!file_exists('storage/framework/cache/repository-cache-keys.json') || unlink('storage/framework/cache/repository-cache-keys.json');\"",
+      "composer dump-autoload --no-interaction --ansi --optimize",
+      "@php artisan inspire --ansi"
+    ],
+    "ide-helper": [
+      "@php artisan ide-helper:generate --ansi",
+      "@php artisan ide-helper:meta --ansi",
+      "@php artisan inspire --ansi"
+    ],
+    "ide-helper-model": [
+      "@php artisan ide-helper:generate --ansi",
+      "@php artisan ide-helper:meta --ansi",
+      "@php artisan ide-helper:models --reset --write --ansi",
+      "@php artisan inspire --ansi"
+    ],
+    "test": "./vendor/bin/pest",
+    "test-coverage": "./vendor/bin/pest --coverage",
+    "x-ray": "vendor/bin/x-ray app database domain resources routes tests",
+    "format": "vendor/bin/pint",
+    "format-dry-run": "vendor/bin/pint --test"
+  },
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "8.1.11"
+    },
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

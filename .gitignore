@@ -1,0 +1,15 @@
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+/storage/*.key
+phpunit.txt
+public/docs/*
+composer.phar
+.phpunit.result.cache
+/storage/api-docs
+.build

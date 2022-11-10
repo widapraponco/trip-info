@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         verbose="true"
+>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./app</directory>
+        </include>
+        <report>
+            <clover outputFile=".build/logs/clover.xml"/>
+            <html outputDirectory=".build/coverage"/>
+            <text outputFile=".build/coverage.txt"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <env name="APP_NAME" value="Lumen Boilerplate"/>
+        <env name="APP_KEY" value="base64:HUmcZPE2aDyqwp4f5C6w1AOkjHSXf5LZKBMUDp8VBA8"/>
+        <env name="APP_ENV" value="testing"/>
+        <env name="APP_DEBUG" value="false"/>
+        <env name="CACHE_DRIVER" value="file"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_PREFIX" value=""/>
+        <env name="LOG_CHANNEL" value="single"/>
+        <env name="REPOSITORY_CACHE_ENABLED" value="false"/>
+    </php>
+</phpunit>
