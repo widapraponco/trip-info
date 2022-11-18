@@ -141,6 +141,8 @@ class Controller extends BaseController
      */
     protected function fractal($data, BaseTransformer $transformer)
     {
+        echo "test branch image local";
+        
         return fractal($data, $transformer, JsonApiSerializer::class)
             ->withResourceName($transformer->getResourceKey())
             ->addMeta(['include' => $transformer->getAvailableIncludes()]);
