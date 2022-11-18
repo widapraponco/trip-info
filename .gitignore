@@ -13,3 +13,4 @@ composer.phar
 .phpunit.result.cache
 /storage/api-docs
 .build
+.rnd
