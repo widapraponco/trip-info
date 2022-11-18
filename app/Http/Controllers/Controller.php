@@ -139,9 +139,7 @@ class Controller extends BaseController
      *
      * @return \Spatie\Fractal\Fractal
      */
-    protected function fractal($data, BaseTransformer $transformer)
-    {
-        echo "test branch image local";
+    protected function fractal($data, BaseTransformer $transformer){
         
         return fractal($data, $transformer, JsonApiSerializer::class)
             ->withResourceName($transformer->getResourceKey())
