@@ -24,6 +24,7 @@ $router->group(
             ],
             function () use ($router) {
                 require 'v1/v1.php';
+                require 'Destinasi.php';
             }
         );
     }
