@@ -17,13 +17,10 @@ class DestinasiController extends Controller
     /** 
      * @OA\Schema(
      *      schema="destinasi__request_property",
-     *      @OA\Property(property="nama", type="string", example="001"),
+     *      @OA\Property(property="nama", type="string", example="nama 1"),
      *      @OA\Property(property="alamat", type="string", example="alamat 1"),
-     *      @OA\Property(property="deskripsi", type="string", example="school 1"),
-     *      @OA\Property(property="kota_id", type="string", example="dept 1"),
-     *      @OA\Property(property="location", type="string", example="location 1"),
-     *      @OA\Property(property="graduate_at", type="date", example="2022-09-20"),
-     *      @OA\Property(property="other_info", type="text", example="information 1")
+     *      @OA\Property(property="deskripsi", type="string", example="deskripsi 1"),
+     *      @OA\Property(property="kota_id", type="string", example="1")
      * )
      * 
      * @OA\Schema(
@@ -34,13 +31,10 @@ class DestinasiController extends Controller
      *              @OA\Property(property="id", type="string", example="1"),
      *              @OA\Property(
      *                  property="attributes", type="object",
-     *                  @OA\Property(property="nama", type="string", example="001"),
+     *                  @OA\Property(property="nama", type="string", example="nama 1"),
      *                  @OA\Property(property="alamat", type="string", example="alamat 1"),
-     *                  @OA\Property(property="deskripsi", type="string", example="school 1"),
-     *                  @OA\Property(property="kota_id", type="string", example="dept 1"),
-     *                  @OA\Property(property="location", type="string", example="location 1"),
-     *                  @OA\Property(property="graduate_at", type="date", example="2022-09-20"),
-     *                  @OA\Property(property="other_info", type="text", example="information 1")
+     *                  @OA\Property(property="deskripsi", type="string", example="deskripsi 1"),
+     *                  @OA\Property(property="kota_id", type="string", example="1")
      *              ),  
      *          )
      *      )
@@ -62,8 +56,8 @@ class DestinasiController extends Controller
      * 
      * @OA\Post(
      *     path="/destinasi",
-     *     summary="Create education",
-     *     tags={"Education"},
+     *     summary="Create deskripsi",
+     *     tags={"Deskripsi"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
@@ -95,25 +89,22 @@ class DestinasiController extends Controller
             ]
         );
 
-        $education = $this->destinasiRepository->create($attributes);
-        // $education = Destinasi::all();
-        return $this->fractal([$education], new DestinasiTransformer());
+        $deskripsi = $this->destinasiRepository->create($attributes);
+        // $deskripsi = Destinasi::all();
+        return $this->fractal([$deskripsi], new DestinasiTransformer());
     }
 
     /**
      * @OA\Get(
      *     path="/destinasi",
-     *     summary="Get education",
-     *     tags={"Education"},
+     *     summary="Get deskripsi",
+     *     tags={"Deskripsi"},
      *     @OA\Parameter(name="page", in="query", required=false,),
      *     @OA\Parameter(name="per_page", in="query", required=false,),
      *     @OA\Parameter(name="nama", in="query", required=false,),
      *     @OA\Parameter(name="alamat", in="query", required=false,),
      *     @OA\Parameter(name="deskripsi", in="query", required=false,),
      *     @OA\Parameter(name="kota_id", in="query", required=false,),
-     *     @OA\Parameter(name="location_at", in="query", required=false,),
-     *     @OA\Parameter(name="graduate_at", in="query", required=false,),
-     *     @OA\Parameter(name="other_info", in="query", required=false,),
      *     @OA\Response(
      *         response="200",
      *         description="ok",
@@ -144,7 +135,7 @@ class DestinasiController extends Controller
             'deskripsi'           => $request->input('deskripsi', false),
             'kota_id'           => $request->input('kota_id', false),
         ];
-        $educations = $this->destinasiRepository->findByParams($input);
+        $deskripsis = $this->destinasiRepository->findByParams($input);
         return $this->fractal($destinasis, new DestinasiTransformer());
     }
 
