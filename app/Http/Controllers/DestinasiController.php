@@ -16,28 +16,28 @@ class DestinasiController extends Controller
 
     /** 
      * @OA\Schema(
-     *      schema="user_education__request_property",
-     *      @OA\Property(property="nip", type="string", example="001"),
-     *      @OA\Property(property="grade", type="string", example="grade 1"),
-     *      @OA\Property(property="school_name", type="string", example="school 1"),
-     *      @OA\Property(property="departement", type="string", example="dept 1"),
+     *      schema="destinasi__request_property",
+     *      @OA\Property(property="nama", type="string", example="001"),
+     *      @OA\Property(property="alamat", type="string", example="alamat 1"),
+     *      @OA\Property(property="deskripsi", type="string", example="school 1"),
+     *      @OA\Property(property="kota_id", type="string", example="dept 1"),
      *      @OA\Property(property="location", type="string", example="location 1"),
      *      @OA\Property(property="graduate_at", type="date", example="2022-09-20"),
      *      @OA\Property(property="other_info", type="text", example="information 1")
      * )
      * 
      * @OA\Schema(
-     *      schema="user_education__response_property",
+     *      schema="destinasi__response_property",
      *      @OA\Property(property="data",type="array",
      *          @OA\Items(
-     *              @OA\Property(property="type", type="string", example="user_education"),
+     *              @OA\Property(property="type", type="string", example="destinasi"),
      *              @OA\Property(property="id", type="string", example="1"),
      *              @OA\Property(
      *                  property="attributes", type="object",
-     *                  @OA\Property(property="nip", type="string", example="001"),
-     *                  @OA\Property(property="grade", type="string", example="grade 1"),
-     *                  @OA\Property(property="school_name", type="string", example="school 1"),
-     *                  @OA\Property(property="departement", type="string", example="dept 1"),
+     *                  @OA\Property(property="nama", type="string", example="001"),
+     *                  @OA\Property(property="alamat", type="string", example="alamat 1"),
+     *                  @OA\Property(property="deskripsi", type="string", example="school 1"),
+     *                  @OA\Property(property="kota_id", type="string", example="dept 1"),
      *                  @OA\Property(property="location", type="string", example="location 1"),
      *                  @OA\Property(property="graduate_at", type="date", example="2022-09-20"),
      *                  @OA\Property(property="other_info", type="text", example="information 1")
@@ -57,17 +57,17 @@ class DestinasiController extends Controller
     }
 
     /**
-     * @api                {post} /user-education
+     * @api                {post} /destinasi
      * @apiPermission      Authenticated User
      * 
      * @OA\Post(
-     *     path="/user-education",
+     *     path="/destinasi",
      *     summary="Create education",
      *     tags={"Education"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/user_education__request_property",)
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
      *         )
      *     ),
      *     @OA\Response(
@@ -76,7 +76,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/user_education__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
      *             )
      *         }
      *     ),
@@ -88,13 +88,10 @@ class DestinasiController extends Controller
         $attributes = $this->validate(
             $request,
             [
-                'nip'               => 'required|string',
-                'grade'             => 'required|string',
-                'school_name'       => 'required|string',
-                'departement'       => 'required|string',
-                'location'          => 'required|string',
-                'graduate_at'       => 'required|date',
-                'other_info'        => 'required|string'
+                'nama'               => 'required|string',
+                'alamat'             => 'required|string',
+                'deskripsi'          => 'required|string',
+                'kota_id'            => 'required|string',
             ]
         );
 
@@ -105,15 +102,15 @@ class DestinasiController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/user-education",
+     *     path="/destinasi",
      *     summary="Get education",
      *     tags={"Education"},
      *     @OA\Parameter(name="page", in="query", required=false,),
      *     @OA\Parameter(name="per_page", in="query", required=false,),
-     *     @OA\Parameter(name="nip", in="query", required=false,),
-     *     @OA\Parameter(name="grade", in="query", required=false,),
-     *     @OA\Parameter(name="school_name", in="query", required=false,),
-     *     @OA\Parameter(name="departement", in="query", required=false,),
+     *     @OA\Parameter(name="nama", in="query", required=false,),
+     *     @OA\Parameter(name="alamat", in="query", required=false,),
+     *     @OA\Parameter(name="deskripsi", in="query", required=false,),
+     *     @OA\Parameter(name="kota_id", in="query", required=false,),
      *     @OA\Parameter(name="location_at", in="query", required=false,),
      *     @OA\Parameter(name="graduate_at", in="query", required=false,),
      *     @OA\Parameter(name="other_info", in="query", required=false,),
@@ -123,7 +120,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/user_education__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
      *             )
      *         }
      *     ),
@@ -134,36 +131,30 @@ class DestinasiController extends Controller
         $this->validate($request, [
             'page'                  => 'nullable|integer',
             'per_page'              => 'nullable|integer',
-            'nip'                   => 'nullable|string',
-            'grade'                 => 'nullable|string',
-            'school_name'           => 'nullable|string',
-            'departement'           => 'nullable|string',
-            'location'              => 'nullable|string',
-            'graduate_at'           => 'nullable|date',
-            'other_info'            => 'nullable|string'
+            'nama'                  => 'nullable|string',
+            'alamat'                => 'nullable|string',
+            'deskripsi'             => 'nullable|string',
+            'kota_id'               => 'nullable|string',
         ]);
 
         $input = [
             'per_page'              => $request->input('per_page', false),
-            'nip'                   => $request->input('nip', false),
-            'grade'                 => $request->input('grade', false),
-            'school_name'           => $request->input('school_name', false),
-            'departement'           => $request->input('departement', false),
-            'location'              => $request->input('location', false),
-            'graduate_at'           => $request->input('graduate_at', false),
-            'other_info'            => $request->input('other_info', false),
+            'nama'                   => $request->input('nama', false),
+            'alamat'                 => $request->input('alamat', false),
+            'deskripsi'           => $request->input('deskripsi', false),
+            'kota_id'           => $request->input('kota_id', false),
         ];
         $educations = $this->destinasiRepository->findByParams($input);
-        return $this->fractal($educations, new DestinasiTransformer());
+        return $this->fractal($destinasis, new DestinasiTransformer());
     }
 
     /**
-     * @api                {get} /user-education/{id}
+     * @api                {get} /destinasi/{id}
      * 
      * @OA\Get(
-     *     path="/user-education/{id}",
-     *     summary="Get education By Id",
-     *     tags={"Education"},
+     *     path="/destinasi/{id}",
+     *     summary="Get destinasi By Id",
+     *     tags={"Destinasi"},
      *     @OA\Parameter(name="id", in="path", required=true,),
      *     @OA\Response(
      *         response="200",
@@ -171,7 +162,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/user_education__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
      *             )
      *         }
      *     ),
@@ -184,28 +175,28 @@ class DestinasiController extends Controller
             abort(404);
         }
 
-        $education = $this->destinasiRepository->findByRouteKeyName($id);
+        $destinasi = $this->destinasiRepository->findByRouteKeyName($id);
 
-        if (blank($education)) {
+        if (blank($destinasi)) {
             return $this->getErrorMessage(105);
         }
 
-        return $this->fractal([$education], new DestinasiTransformer());
+        return $this->fractal([$destinasi], new DestinasiTransformer());
     }
 
     /**
-     * @api                {put} /user-education
+     * @api                {put} /destinasi
      * @apiPermission      Authenticated User
      * 
      * @OA\Put(
-     *     path="/user-education/{id}",
-     *     summary="Update education",
-     *     tags={"Education"},
+     *     path="/destinasi/{id}",
+     *     summary="Update destinasi",
+     *     tags={"Destinasi"},
      *     @OA\Parameter(name="id", in="path", required=true,),
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/user_education__request_property",)
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
      *         )
      *     ),
      *     @OA\Response(
@@ -214,7 +205,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/user_education__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
      *             )
      *         }
      *     ),
@@ -226,13 +217,10 @@ class DestinasiController extends Controller
         $attributes = $this->validate(
             $request,
             [
-                'nip'               => 'required|string',
-                'grade'             => 'required|string',
-                'school_name'       => 'required|string',
-                'departement'       => 'required|string',
-                'location'          => 'required|string',
-                'graduate_at'       => 'required|date',
-                'other_info'        => 'required|string'
+                'nama'               => 'required|string',
+                'alamat'             => 'required|string',
+                'deskripsi'       => 'required|string',
+                'kota_id'       => 'required|string',
             ]
         );
 
@@ -241,8 +229,8 @@ class DestinasiController extends Controller
             return response(['message' => 'Not found id.'], 403);
         }
         $id = $keyId->getKey();
-        $education = $this->destinasiRepository->update($attributes, $id);
-        return $this->fractal([$education], new DestinasiTransformer());
+        $destinasi = $this->destinasiRepository->update($attributes, $id);
+        return $this->fractal([$destinasi], new DestinasiTransformer());
     }
 
 
@@ -250,14 +238,14 @@ class DestinasiController extends Controller
      * @api                {delete} /auth/users/{id} Destroy user
      * @apiPermission      Authenticated User
      * @OA\Delete(
-     *     path="/education/{id}",
-     *     summary="Delete education",
-     *     tags={"Education"},
+     *     path="/destinasi/{id}",
+     *     summary="Delete destinasi",
+     *     tags={"Destinasi"},
      *     @OA\Parameter(name="id", in="path", required=true,),
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/user_education__request_property",)
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
      *         )
      *     ),
      *     @OA\Response(
@@ -266,7 +254,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/user_education__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
      *             )
      *         }
      *     ),
