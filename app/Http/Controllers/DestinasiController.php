@@ -156,14 +156,14 @@ class DestinasiController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = app(FindUserByRouteKeyAction::class)
+        $destinasi = app(FindUserByRouteKeyAction::class)
             ->execute($id);
 
-        if (app('auth')->id() == $user->getKey()) {
+        if (app('auth')->id() == $destinasi->getKey()) {
             return response(['message' => 'You cannot delete your self.'], 403);
         }
 
-        $user->delete();
+        $destinasi->delete();
 
         return response('', 204);
     }
