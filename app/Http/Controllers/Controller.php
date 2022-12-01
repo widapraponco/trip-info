@@ -81,8 +81,7 @@ class Controller extends BaseController
      *                     @OA\Property(
      *                         property="expires_in",
      *                         type="integer",
-     *                         description="Token expiration in miliseconds",
-     *                         @OA\Items
+     *                         description="Token expiration in miliseconds"
      *                     ),
      *                     @OA\Property(
      *                         property="access_token",
