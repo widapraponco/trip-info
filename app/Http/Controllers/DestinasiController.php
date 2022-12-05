@@ -102,17 +102,6 @@ class DestinasiController extends Controller
     }
 
     /**
-     * @param  string  $id
-     *
-     * @return \Spatie\Fractal\Fractal
-     * @api                {get} /auth/users/{id} Show user
-     * @apiName            show-user
-     * @apiGroup           User
-     * @apiVersion         1.0.0
-     * @apiPermission      Authenticated User
-     * @apiUse             UserResponse
-     *
-     *
      * @api                {get} /destinasi/{id}
      * 
      * @OA\Get(
