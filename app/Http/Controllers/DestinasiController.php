@@ -48,7 +48,7 @@ class DestinasiController extends Controller
     {
         $permissions = User::PERMISSIONS;
 
-        $this->middleware('permission:'.$permissions['index'], ['only' => 'index']);
+        // $this->middleware('permission:'.$permissions['index'], ['only' => 'index']);
         $this->middleware('permission:'.$permissions['create'], ['only' => 'store']);
         $this->middleware('permission:'.$permissions['show'], ['only' => 'show']);
         $this->middleware('permission:'.$permissions['update'], ['only' => 'update']);
@@ -126,17 +126,31 @@ class DestinasiController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Validation\ValidationException
-     * @api                {post} /auth/users Store user
-     * @apiName            store-user
-     * @apiGroup           User
-     * @apiVersion         1.0.0
+     * @api                {post} /destinasi
      * @apiPermission      Authenticated User
-     * @apiUse             UserCreatedResponse
-     * @apiParam {String} nama (required)
-     * @apiParam {String} alamat (required)
-     * @apiParam {String} deskripsi (required)
-     * @apiParam {integer} kota_id (required)
-     *
+     * 
+     * @OA\Post(
+     *     path="/destinasi",
+     *     summary="Create destinasi",
+     *     tags={"Destinasi"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
     public function store(Request $request)
     {
