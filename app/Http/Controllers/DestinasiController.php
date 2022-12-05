@@ -268,7 +268,34 @@ class DestinasiController extends Controller
      * @apiPermission      Authenticated User
      * @apiUse             NoContentResponse
      *
+     *
+     * @api                {delete} /auth/users/{id} Destroy user
+     * @apiPermission      Authenticated User
+     * @OA\Delete(
+     *     path="/destinasi/{id}",
+     *     summary="Delete destinasi",
+     *     tags={"Destinasi"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok"
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
+
     public function destroy(string $id)
     {
         $destinasi = app(FindUserByRouteKeyAction::class)
