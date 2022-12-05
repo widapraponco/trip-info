@@ -48,7 +48,7 @@ class DestinasiController extends Controller
     {
         $permissions = User::PERMISSIONS;
 
-        // $this->middleware('permission:'.$permissions['index'], ['only' => 'index']);
+        $this->middleware('permission:'.$permissions['index'], ['only' => 'index']);
         $this->middleware('permission:'.$permissions['create'], ['only' => 'store']);
         $this->middleware('permission:'.$permissions['show'], ['only' => 'show']);
         $this->middleware('permission:'.$permissions['update'], ['only' => 'update']);
@@ -112,6 +112,26 @@ class DestinasiController extends Controller
      * @apiPermission      Authenticated User
      * @apiUse             UserResponse
      *
+     *
+     * @api                {get} /destinasi/{id}
+     * 
+     * @OA\Get(
+     *     path="/destinasi/{id}",
+     *     summary="Get destinasi By Id",
+     *     tags={"Destinasi"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
     public function show(string $id)
     {
