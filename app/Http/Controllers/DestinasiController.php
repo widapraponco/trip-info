@@ -209,6 +209,33 @@ class DestinasiController extends Controller
      * @apiParam {String} deskripsi
      * @apiParam {integer} kota_id
      *
+     *
+     * @api                {put} /destinasi
+     * @apiPermission      Authenticated User
+     * 
+     * @OA\Put(
+     *     path="/destinasi/{id}",
+     *     summary="Update destinasi",
+     *     tags={"Destinasi"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
     public function update(Request $request, string $id)
     {
