@@ -8,7 +8,7 @@ declare(strict_types=1);
  * Time: 3:31 PM
  */
 
-namespace App\Transformers\DestinasiTransformer;
+namespace App\Transformers;
 
 use App\Models\Destinasi;
 use App\Transformers\BaseTransformer;
@@ -42,7 +42,7 @@ use App\Transformers\BaseTransformer;
  *     }
  * )
  */
-class UserTransformer extends BaseTransformer
+class DestinasiTransformer extends BaseTransformer
 {
     protected array $availableIncludes = [
         'roles',
@@ -56,7 +56,7 @@ class UserTransformer extends BaseTransformer
      *
      * @return array
      */
-    public function transform(User $destinasi)
+    public function transform(Destinasi $destinasi)
     {
         $response = [
             'id'        => self::forId($destinasi),
@@ -74,16 +74,6 @@ class UserTransformer extends BaseTransformer
         );
 
         return $this->addTimesHumanReadable($destinasi, $response);
-    }
-
-    public function includeRoles(User $destinasi)
-    {
-        return $this->collection($destinasi->roles, new RoleTransformer());
-    }
-
-    public function includePermissions(User $destinasi)
-    {
-        return $this->collection($destinasi->permissions, new PermissionTransformer());
     }
 
     /** @return string */
