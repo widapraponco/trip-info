@@ -192,24 +192,6 @@ class DestinasiController extends Controller
     }
 
     /**
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $id
-     *
-     * @return \Spatie\Fractal\Fractal
-     * @throws \Illuminate\Validation\ValidationException
-     * @api                {put} /auth/users/ Update user
-     * @apiName            update-user
-     * @apiGroup           User
-     * @apiVersion         1.0.0
-     * @apiPermission      Authenticated User
-     * @apiUse             UserResponse
-     * @apiParam {String} nama
-     * @apiParam {String} alamat
-     * @apiParam {String} deskripsi
-     * @apiParam {integer} kota_id
-     *
-     *
      * @api                {put} /destinasi
      * @apiPermission      Authenticated User
      * 
