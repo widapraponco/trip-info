@@ -142,13 +142,6 @@ class DestinasiController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
-     * @api                {post} /destinasi
-     * @apiPermission      Authenticated User
-     * 
      * @OA\Post(
      *     path="/destinasi",
      *     summary="Create destinasi",
