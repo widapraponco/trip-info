@@ -55,18 +55,7 @@ class DestinasiController extends Controller
         $this->middleware('permission:'.$permissions['destroy'], ['only' => 'destroy']);
     }
     
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Spatie\Fractal\Fractal
-     * @api                {get} /auth/users Get all users
-     * @apiName            get-all-users
-     * @apiGroup           User
-     * @apiVersion         1.0.0
-     * @apiPermission      Authenticated User
-     * @apiUse             UsersResponse
-     *
-     */
+
     /**
      * @OA\Get(
      *     path="/destinasi",
