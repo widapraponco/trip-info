@@ -15,7 +15,7 @@ use App\Transformers\BaseTransformer;
 
 /**
  * @OA\Schema(
- *     schema="DestinasiTransformer",
+ *     schema="EventTransformer",
  *     type="object",
  *     properties={
  *         @OA\Property(property="id", type="string"),
