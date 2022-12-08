@@ -12,7 +12,7 @@ use App\Models\restoran;
 use App\Transformers\BaseTransformer;
 use League\Fractal\TransformerAbstract;
 
-class RestoranTransformer extends BaseTransformer
+class restoranTransformer extends BaseTransformer
 {
     protected array $availableIncludes = [];
     protected array $defaultIncludes = [];
@@ -30,6 +30,7 @@ class RestoranTransformer extends BaseTransformer
         ];
         return $response;
     }
+
 
     public function getResourceKey(): string
     {
