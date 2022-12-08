@@ -21,7 +21,7 @@ class EventController extends Controller
      *      @OA\Property(property="destinasi_id", type="integer", example="destinasi_id 1"),
      *      @OA\Property(property="nama", type="string", example="nama 1"),
      *      @OA\Property(property="tanggal_pelaksanaan", type="date", example="tanggal_pelaksanaan 1"),
-     *      @OA\Property(property="jam_mulai", type="integer", example="jam_mulai 1")
+     *      @OA\Property(property="jam_mulai", type="integer", example="jam_mulai 1"),
      *      @OA\Property(property="jam_berakhir", type="integer", example="jam_berakhir 1"),
      *      @OA\Property(property="tanggal_selesai", type="date", example="tanggal_selesai 1"),
      *      @OA\Property(property="contact_person", type="string", example="contact_person 1"),
@@ -39,7 +39,7 @@ class EventController extends Controller
      *                  @OA\Property(property="destinasi_id", type="string", example="destinasi_id 1"),
      *                  @OA\Property(property="nama", type="string", example="nama 1"),
      *                  @OA\Property(property="tanggal_pelaksanaan", type="string", example="tanggal_pelaksanaan 1"),
-     *                  @OA\Property(property="jam_mulai", type="integer", example="jam_mulai1")
+     *                  @OA\Property(property="jam_mulai", type="integer", example="jam_mulai1"),
      *                  @OA\Property(property="jam_berakhir", type="string", example="jam_berakhir 1"),
      *                  @OA\Property(property="tanggal_selesai", type="string", example="tanggal_selesai 1"),
      *                  @OA\Property(property="contact_person", type="string", example="contact_person 1"),
@@ -248,7 +248,7 @@ class EventController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="ok"
+     *         description="ok",
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
