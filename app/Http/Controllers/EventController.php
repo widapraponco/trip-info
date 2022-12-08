@@ -212,10 +212,15 @@ class EventController extends Controller
         $attributes = $this->validate(
             $request,
             [
-                'nama'      => 'required|string',
-                'alamat'    => 'required|string',
-                'deskripsi' => 'required|string',
-                'kota_id'   => 'required|integer',
+                'destinasi_id'           => 'required|integer',
+                'nama'                   => 'required|string',
+                'tanggal_pelaksanaan'    => 'required|date',
+                'jam_mulai'              => 'required|integer',
+                'jam_berakhir'           => 'required|integer',
+                'tanggal_selesai'        => 'required|date',
+                'contact_person'         => 'required|string',
+                'rating'                 => 'required|integer',
+                
             ]
         );
 
