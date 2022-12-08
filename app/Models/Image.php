@@ -17,6 +17,13 @@ class Image extends Model {
         'delete'        => 'image delete',
     ];
 
+    protected $fillable = [
+        'nama', 
+        'extension',
+        'path',
+        'size',
+        'date'
+    ];
 
     //public function employee()
     //{
