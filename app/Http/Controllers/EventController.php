@@ -71,10 +71,14 @@ class EventController extends Controller
      *     tags={"Event"},
      *     @OA\Parameter(name="page", in="query", required=false,),
      *     @OA\Parameter(name="per_page", in="query", required=false,),
+     *     @OA\Parameter(name="destinasi_id", in="query", required=false,),
      *     @OA\Parameter(name="nama", in="query", required=false,),
-     *     @OA\Parameter(name="alamat", in="query", required=false,),
-     *     @OA\Parameter(name="deskripsi", in="query", required=false,),
-     *     @OA\Parameter(name="kota_id", in="query", required=false,),
+     *     @OA\Parameter(name="tanggal_pelaksanaan", in="query", required=false,),
+     *     @OA\Parameter(name="jam_mulai", in="query", required=false,),
+     *     @OA\Parameter(name="jam_berakhir", in="query", required=false,),
+     *     @OA\Parameter(name="jam_selesai", in="query", required=false,),
+     *     @OA\Parameter(name="contact_person", in="query", required=false,),
+     *     @OA\Parameter(name="rating", in="query", required=false,),
      *     @OA\Response(
      *         response="200",
      *         description="ok",
@@ -92,7 +96,7 @@ class EventController extends Controller
     {
         return $this->fractal(
             QueryBuilder::for(Event::class)
-                ->allowedFilters(['nama', 'alamat', 'deskripsi', 'kota_id'])
+                ->allowedFilters(['destinasi_id', 'nama', 'tanggal_pelaksanaan', 'jam_mulai','jam_berakhir','tanggal_selesai','contact_person','rating'])
                 ->paginate(),
             new EventTransformer()
         );
@@ -156,10 +160,15 @@ class EventController extends Controller
         $attributes = $this->validate(
             $request,
             [
-                'nama'      => 'required|string',
-                'alamat'    => 'required|string',
-                'deskripsi' => 'required|string',
-                'kota_id'   => 'required|integer',
+                'destinasi_id'           => 'required|integer',
+                'nama'                   => 'required|string',
+                'tanggal_pelaksanaan'    => 'required|date',
+                'jam_mulai'              => 'required|integer',
+                'jam_berakhir'           => 'required|integer',
+                'tanggal_selesai'        => 'required|date',
+                'contact_person'         => 'required|string',
+                'rating'                 => 'required|integer',
+                
             ]
         );
 
