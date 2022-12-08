@@ -18,10 +18,14 @@ class EventController extends Controller
     /** 
      * @OA\Schema(
      *      schema="event__request_property",
+     *      @OA\Property(property="destinasi_id", type="integer", example="destinasi_id 1"),
      *      @OA\Property(property="nama", type="string", example="nama 1"),
-     *      @OA\Property(property="alamat", type="string", example="alamat 1"),
-     *      @OA\Property(property="deskripsi", type="string", example="deskripsi 1"),
-     *      @OA\Property(property="kota_id", type="integer", example="1")
+     *      @OA\Property(property="tanggal_pelaksanaan", type="date", example="tanggal_pelaksanaan 1"),
+     *      @OA\Property(property="jam_mulai", type="integer", example="jam_mulai 1")
+     *      @OA\Property(property="jam_berakhir", type="integer", example="jam_berakhir 1"),
+     *      @OA\Property(property="tanggal_selesai", type="date", example="tanggal_selesai 1"),
+     *      @OA\Property(property="contact_person", type="string", example="contact_person 1"),
+     *      @OA\Property(property="rating", type="integer", example="rating 1")
      * )
      * 
      * @OA\Schema(
@@ -32,10 +36,14 @@ class EventController extends Controller
      *              @OA\Property(property="id", type="string", example="1"),
      *              @OA\Property(
      *                  property="attributes", type="object",
+     *                  @OA\Property(property="destinasi_id", type="string", example="destinasi_id 1"),
      *                  @OA\Property(property="nama", type="string", example="nama 1"),
-     *                  @OA\Property(property="alamat", type="string", example="alamat 1"),
-     *                  @OA\Property(property="deskripsi", type="string", example="deskripsi 1"),
-     *                  @OA\Property(property="kota_id", type="integer", example="1")
+     *                  @OA\Property(property="tanggal_pelaksanaan", type="string", example="tanggal_pelaksanaan 1"),
+     *                  @OA\Property(property="jam_mulai", type="integer", example="jam_mulai1")
+     *                  @OA\Property(property="jam_berakhir", type="string", example="jam_berakhir 1"),
+     *                  @OA\Property(property="tanggal_selesai", type="string", example="tanggal_selesai 1"),
+     *                  @OA\Property(property="contact_person", type="string", example="contact_person 1"),
+     *                  @OA\Property(property="rating", type="integer", example="rating 1")
      *              ),  
      *          )
      *      )
