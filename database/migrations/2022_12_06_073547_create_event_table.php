@@ -16,6 +16,15 @@ return new class extends Migration
         Schema::create('event', function (Blueprint $table) {
             $table->id();
 
+            $table->integer('destinasi_id');
+            $table->string('nama');
+            $table->date('tanggal_pelaksanaan');
+            $table->integer('jam_mulai');
+            $table->integer('jam_berakhir');
+            $table->date('tanggal_selesai');
+            $table->string('contact_person');
+            $table->integer('rating');
+
             $table->destinasi_id();
 
             $table->nama();
@@ -31,6 +40,7 @@ return new class extends Migration
             $table->contact_person();
 
             $table->rating();
+            $table->timestamps();
         });
 
     }
