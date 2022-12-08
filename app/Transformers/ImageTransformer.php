@@ -27,9 +27,7 @@ class ImageTransformer extends TransformerAbstract
         $response = [
             'id'                    => self::forId($image),
             'nama'                  => $image->nama,
-            'extension'             => $image->extension,
-            'path'                  => $this->getUrl($image),
-            'size'                  => $image->size,
+            
         ];
         return $response;
     }
