@@ -25,21 +25,6 @@ return new class extends Migration
             $table->string('contact_person');
             $table->integer('rating');
 
-            $table->destinasi_id();
-
-            $table->nama();
-            
-            $table->tanggal_pelaksanaan();
-
-            $table->jam_mulai();
-
-            $table->jam_berakhir();
-
-            $table->tanggal_selesai();
-
-            $table->contact_person();
-
-            $table->rating();
             $table->timestamps();
         });
 
