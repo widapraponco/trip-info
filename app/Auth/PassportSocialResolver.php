@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth;
 
-use App\Repositories\Auth\User\UserRepository;
+
 use Coderello\SocialGrant\Resolvers\SocialUserResolverInterface;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -13,12 +13,11 @@ use League\OAuth2\Server\Exception\OAuthServerException;
 
 class PassportSocialResolver implements SocialUserResolverInterface
 {
-    private UserRepository $userRepository;
-
-    public function __construct(UserRepository $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
+    
+    
+    
+        
+    
 
     /**
      * @param  string  $provider
@@ -55,6 +54,6 @@ class PassportSocialResolver implements SocialUserResolverInterface
             return null;
         }
 
-        return $this->userRepository->findOrCreateProvider($providerUser, $provider);
+        return $this->null->findOrCreateProvider($providerUser, $provider);
     }
 }
