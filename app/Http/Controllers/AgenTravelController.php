@@ -2,87 +2,139 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\DestinasiController;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auth\User\User;
 use App\Models\AgenTravel;
 use App\Transformers\AgenTravelTransformer;
 use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Log;
 
-class AgenTravelController extends Controller
+
+class DestinasiController extends Controller
 {
-    public function __construct()
-    {
-        $permissions = User::PERMISSIONS;
-
-        $this->middleware('permission:'.$permissions['index'], ['only' => 'index']);
-        $this->middleware('permission:'.$permissions['create'], ['only' => 'store']);
-        $this->middleware('permission:'.$permissions['show'], ['only' => 'show']);
-        $this->middleware('permission:'.$permissions['update'], ['only' => 'update']);
-        $this->middleware('permission:'.$permissions['destroy'], ['only' => 'destroy']);
-    }
-
-    /**
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Spatie\Fractal\Fractal
-     * @api                {get} /auth/users Get all users
-     * @apiName            get-all-users
-     * @apiGroup           User
-     * @apiVersion         1.0.0
-     * @apiPermission      Authenticated User
-     * @apiUse             UsersResponse
-     *
+    /** 
+     * @OA\Schema(
+     *      schema="agentravel__request_property",
+     *      @OA\Property(property="nama", type="string", example="nama 1"),
+     *      @OA\Property(property="alamat", type="string", example="alamat 1"),
+     *      @OA\Property(property="contact_person", type="string", example="contact_person 1"),
+     *      @OA\Property(property="rating", type="string", example="rating 1"),
+     *      @OA\Property(property="destinasi_id", type="integer", example="1")
+     * )
+     * 
+     * @OA\Schema(
+     *      schema="destinasi__response_property",
+     *      @OA\Property(property="data",type="array",
+     *          @OA\Items(
+     *              @OA\Property(property="type", type="string", example="agentravel"),
+     *              @OA\Property(property="id", type="string", example="1"),
+     *              @OA\Property(
+     *                  property="attributes", type="object",
+     *                  @OA\Property(property="nama", type="string", example="nama 1"),
+     *                  @OA\Property(property="alamat", type="string", example="alamat 1"),
+     *                  @OA\Property(property="contact_person", type="string", example="contact_person 1"),
+     *                  @OA\Property(property="rating", type="string", example="rating 1"),
+     *                  @OA\Property(property="destinasi_id", type="integer", example="1")
+     *              ),  
+     *          )
+     *      )
+     * )
+     * 
+     * issue: https://github.com/zircote/swagger-php/issues/695 (swagger doesn't accep square bracket)
      */
+
+     
+    /**
+     * @OA\Get(
+     *     path="/agentravel",
+     *     summary="Get agentravel",
+     *     tags={"AgenTravel"},
+     *     @OA\Parameter(name="page", in="query", required=false,),
+     *     @OA\Parameter(name="per_page", in="query", required=false,),
+     *     @OA\Parameter(name="nama", in="query", required=false,),
+     *     @OA\Parameter(name="alamat", in="query", required=false,),
+     *     @OA\Parameter(name="contact_person", in="query", required=false,),
+     *     @OA\Parameter(name="rating", in="query", required=false,),
+     *     @OA\Parameter(name="destinasi_id", in="query", required=false,),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     * )
+     */
+
     public function index()
     {
         return $this->fractal(
-            QueryBuilder::for(User::class)
-                ->allowedFilters(['nama', 'alamat', 'contact_person', 'destinasi_id', 'rating'])
+            QueryBuilder::for(AgenTravel::class)
+                ->allowedFilters(['nama', 'alamat', 'contact_person', 'rating',  'destinasi_id'])
                 ->paginate(),
-            new DestinasiTransformer()
+            new AgenTravelTransformer()
         );
     }
 
     /**
-     * @param  string  $id
-     *
-     * @return \Spatie\Fractal\Fractal
-     * @api                {get} /auth/users/{id} Show user
-     * @apiName            show-user
-     * @apiGroup           User
-     * @apiVersion         1.0.0
-     * @apiPermission      Authenticated User
-     * @apiUse             UserResponse
-     *
+     * @api                {get} /agentravel/{id}
+     * 
+     * @OA\Get(
+     *     path="/agentravel/{id}",
+     *     summary="Get agentravel By Id",
+     *     tags={"AgenTravel"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
     public function show(string $id)
     {
         return $this->fractal(
             app(FindUserByRouteKeyAction::class)->execute($id, throw404: true),
-            new AgenTRavelTransformer()
+            new AgenTravelTransformer()
         );
     }
 
     /**
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
-     * @api                {post} /auth/users Store user
-     * @apiName            store-user
-     * @apiGroup           User
-     * @apiVersion         1.0.0
-     * @apiPermission      Authenticated User
-     * @apiUse             UserCreatedResponse
-     * @apiParam {String} nama (required)
-     * @apiParam {String} alamat (required)
-     * @apiParam {String} deskripsi (required)
-     * @apiParam {integer} kota_id (required)
-     *
+     * @OA\Post(
+     *     path="/agentravel",
+     *     summary="Create agentravel",
+     *     tags={"AgenTravel"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
@@ -92,8 +144,8 @@ class AgenTravelController extends Controller
                 'nama'      => 'required|string',
                 'alamat'    => 'required|string',
                 'contact_person' => 'required|string',
+                'rating' => 'required|string',
                 'destinasi_id'   => 'required|integer',
-                'rating'   => 'required|string',
             ]
         );
 
@@ -105,24 +157,32 @@ class AgenTravelController extends Controller
     }
 
     /**
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $id
-     *
-     * @return \Spatie\Fractal\Fractal
-     * @throws \Illuminate\Validation\ValidationException
-     * @api                {put} /auth/users/ Update user
-     * @apiName            update-user
-     * @apiGroup           User
-     * @apiVersion         1.0.0
+     * @api                {put} /agentravel
      * @apiPermission      Authenticated User
-     * @apiUse             UserResponse
-     * @apiParam {String} nama
-     * @apiParam {String} alamat
-     * @apiParam {String} contact_person
-     * @apiParam {integer} destinasi_id
-     * @apiParam {String} rating
-     *
+     * 
+     * @OA\Put(
+     *     path="/agentravel/{id}",
+     *     summary="Update agentravel",
+     *     tags={"AgenTravel"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
     public function update(Request $request, string $id)
     {
@@ -132,8 +192,8 @@ class AgenTravelController extends Controller
                 'nama'      => 'required|string',
                 'alamat'    => 'required|string',
                 'contact_person' => 'required|string',
+                'rating'    => 'required|string',
                 'destinasi_id'   => 'required|integer',
-                'rating'   => 'required|string',
             ]
         );
 
@@ -146,17 +206,33 @@ class AgenTravelController extends Controller
     }
 
     /**
-     * @param  string  $id
-     *
-     * @return \Illuminate\Http\Response|\Laravel\Lumen\Http\ResponseFactory
      * @api                {delete} /auth/users/{id} Destroy user
-     * @apiName            destroy-user
-     * @apiGroup           User
-     * @apiVersion         1.0.0
      * @apiPermission      Authenticated User
-     * @apiUse             NoContentResponse
-     *
+     * @OA\Delete(
+     *     path="/agentravel/{id}",
+     *     summary="Delete agentravel",
+     *     tags={"AgenTravel"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
+
     public function destroy(string $id)
     {
         $agentravel = app(FindUserByRouteKeyAction::class)

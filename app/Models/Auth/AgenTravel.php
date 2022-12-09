@@ -18,7 +18,7 @@ class Destinasi extends Model {
 
     protected $fillable = [
         'destinasi_id',
-        'alamt', 
+        'alamat', 
         'nama',
         'contact_person',
         'rating'
