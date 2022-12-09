@@ -12,6 +12,8 @@ use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Log;
+
 
 class DestinasiController extends Controller
 {
@@ -44,18 +46,7 @@ class DestinasiController extends Controller
      * issue: https://github.com/zircote/swagger-php/issues/695 (swagger doesn't accep square bracket)
      */
 
-    public function __construct()
-    {
-        $permissions = User::PERMISSIONS;
-
-        $this->middleware('permission:'.$permissions['index'], ['only' => 'index']);
-        $this->middleware('permission:'.$permissions['create'], ['only' => 'store']);
-        $this->middleware('permission:'.$permissions['show'], ['only' => 'show']);
-        $this->middleware('permission:'.$permissions['update'], ['only' => 'update']);
-        $this->middleware('permission:'.$permissions['destroy'], ['only' => 'destroy']);
-    }
-    
-
+     
     /**
      * @OA\Get(
      *     path="/destinasi",
@@ -140,7 +131,6 @@ class DestinasiController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
     public function store(Request $request)
@@ -156,7 +146,7 @@ class DestinasiController extends Controller
         );
 
         return $this->fractal(
-            app(CreateUserAction::class)->execute($attributes),
+            app(CreateDestinasiAction::class)->execute($attributes),
             new DestinasiTransformer()
         )
             ->respond(201);
@@ -226,7 +216,7 @@ class DestinasiController extends Controller
      *     ),
      *     @OA\Response(
      *         response="200",
-     *         description="ok"
+     *         description="ok",
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
