@@ -98,7 +98,7 @@ class AgenTravelController extends Controller
         );
 
         return $this->fractal(
-            app(CreateUserAction::class)->execute($attributes),
+            app(CreateAgenTravelAction::class)->execute($attributes),
             new AgenTravelTransformer()
         )
             ->respond(201);
