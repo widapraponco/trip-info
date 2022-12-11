@@ -26,5 +26,15 @@ $router->group(
                 require 'v1/v1.php';
             }
         );
+        
+        $router->group(
+            [
+                // 'namespace' => 'V1',
+            ],
+            function () use ($router) {
+                
+                require 'Image.php';
+            }
+        );
     }
 );
