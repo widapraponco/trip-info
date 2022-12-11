@@ -10,8 +10,6 @@ class CreateImageAction
 {
     public function execute(array $attributes): Image
     {
-        $attributes['pic'] = app('hash')->make($attributes['pic']);
-
         return Image::create($attributes);
     }
 }
