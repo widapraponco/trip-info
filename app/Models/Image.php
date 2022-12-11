@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model {
     
     protected $table = 'image';
-    public $desciption = 'Gambar';
+    public $desciption = 'Upload Gambar';
 
     public const PERMISSIONS = [
         'create'        => 'image create',
@@ -18,11 +18,8 @@ class Image extends Model {
     ];
 
     protected $fillable = [
-        'nama', 
-        'extension',
-        'path',
-        'size',
-        'date'
+        'name', 
+        'pic',
     ];
 
     //public function employee()
