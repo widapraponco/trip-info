@@ -6,12 +6,12 @@ declare(strict_types=1);
 
 $router->group(
     [
-        'as' => 'images',
+        'as' => 'image',
     ],
     function () use ($router) {
         $router->group(
             [
-                'prefix' => 'images',
+                'prefix' => 'image',
             ],
             function () use ($router) {
                 // deletes
