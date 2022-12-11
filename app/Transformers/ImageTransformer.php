@@ -54,7 +54,7 @@ class ImageTransformer extends BaseTransformer
         $response = [
             'id'        => self::forId($image),
             'name'      => $image->name,
-            'pic'    => $image->pic,
+            'pic'       => $image->pic,
         ];
 
         $response = $this->filterData(
