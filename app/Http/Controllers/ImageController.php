@@ -1,84 +1,234 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\Auth\User\User;
+use App\Models\Image;
+use App\Transformers\ImageTransformer;
+use Domain\User\Actions\CreateUserAction;
+use Domain\User\Actions\FindUserByRouteKeyAction;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Log;
+
 
 class ImageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+    /** 
+     * @OA\Schema(
+     *      schema="image__request_property",
+     *      @OA\Property(property="name", type="string", example="name 1"),
+     *      @OA\Property(property="pic", type="string", example="pic 1")
+     * )
+     * 
+     * @OA\Schema(
+     *      schema="image__response_property",
+     *      @OA\Property(property="data",type="array",
+     *          @OA\Items(
+     *              @OA\Property(property="type", type="string", example="image"),
+     *              @OA\Property(property="id", type="string", example="1"),
+     *              @OA\Property(
+     *                  property="attributes", type="object",
+     *                  @OA\Property(property="name", type="string", example="name 1"),
+     *                  @OA\Property(property="pic", type="string", example="pic 1")
+     *              ),  
+     *          )
+     *      )
+     * )
+     * 
+     * issue: https://github.com/zircote/swagger-php/issues/695 (swagger doesn't accep square bracket)
      */
+
+     
+    /**
+     * @OA\Get(
+     *     path="/image",
+     *     summary="Get image",
+     *     tags={"Image"},
+     *     @OA\Parameter(name="page", in="query", required=false,),
+     *     @OA\Parameter(name="per_page", in="query", required=false,),
+     *     @OA\Parameter(name="name", in="query", required=false,),
+     *     @OA\Parameter(name="pic", in="query", required=false,),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/image__response_property")
+     *             )
+     *         }
+     *     ),
+     * )
+     */
+
     public function index()
     {
-        //
+        return $this->fractal(
+            QueryBuilder::for(Image::class)
+                ->allowedFilters(['name', 'pic', 'deskripsi', 'kota_id'])
+                ->paginate(),
+            new ImageTransformer()
+        );
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @api                {get} /image/{id}
+     * 
+     * @OA\Get(
+     *     path="/image/{id}",
+     *     summary="Get image By Id",
+     *     tags={"Image"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/image__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
-    public function create()
+    public function show(string $id)
     {
-        //
+        return $this->fractal(
+            app(FindUserByRouteKeyAction::class)->execute($id, throw404: true),
+            new ImageTransformer()
+        );
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     *     path="/image",
+     *     summary="Create image",
+     *     tags={"Image"},
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/image__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/image__response_property")
+     *             )
+     *         }
+     *     ),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $this->validate(
+            $request,
+            [
+                'name'      => 'required|string',
+                'pic'       => 'required|string',
+            ]
+        );
+
+        return $this->fractal(
+            app(CreateImageAction::class)->execute($attributes),
+            new ImageTransformer()
+        )
+            ->respond(201);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @api                {put} /image
+     * @apiPermission      Authenticated User
+     * 
+     * @OA\Put(
+     *     path="/image/{id}",
+     *     summary="Update image",
+     *     tags={"Image"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/image__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/image__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
-    public function show($id)
+    public function update(Request $request, string $id)
     {
-        //
+        $attributes = $this->validate(
+            $request,
+            [
+                'name'      => 'required|string',
+                'pic'       => 'required|string',
+            ]
+        );
+
+        $image = app(FindUserByRouteKeyAction::class)
+            ->execute($id);
+
+        $image->update($attributes);
+
+        return $this->fractal($image->refresh(), new ImageTransformer());
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @api                {delete} /auth/users/{id} Destroy user
+     * @apiPermission      Authenticated User
+     * @OA\Delete(
+     *     path="/image/{id}",
+     *     summary="Delete image",
+     *     tags={"Image"},
+     *     @OA\Parameter(name="id", in="path", required=true,),
+     *     @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(ref="#/components/schemas/image__request_property",)
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response="200",
+     *         description="ok",
+     *         content={
+     *             @OA\MediaType(
+     *                 mediaType="application/json",
+     *                 @OA\Schema(ref="#/components/schemas/image__response_property")
+     *             )
+     *         }
+     *     ),
+     *     security={{"authorization":{}}}
+     * )
      */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function destroy(string $id)
     {
-        //
-    }
+        $image = app(FindUserByRouteKeyAction::class)
+            ->execute($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if (app('auth')->id() == $image->getKey()) {
+            return response(['message' => 'You cannot delete your self.'], 403);
+        }
+
+        $image->delete();
+
+        return response('', 204);
     }
 }
