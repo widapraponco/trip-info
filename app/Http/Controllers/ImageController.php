@@ -69,7 +69,7 @@ class ImageController extends Controller
     {
         return $this->fractal(
             QueryBuilder::for(Image::class)
-                ->allowedFilters(['name', 'pic', 'deskripsi', 'kota_id'])
+                ->allowedFilters(['name', 'pic'])
                 ->paginate(),
             new ImageTransformer()
         );
@@ -133,7 +133,7 @@ class ImageController extends Controller
             $request,
             [
                 'name'      => 'required|string',
-                'pic'       => 'required|string',
+                'pic'    => 'required|string',
             ]
         );
 
@@ -178,7 +178,7 @@ class ImageController extends Controller
             $request,
             [
                 'name'      => 'required|string',
-                'pic'       => 'required|string',
+                'pic'    => 'required|string',
             ]
         );
 
