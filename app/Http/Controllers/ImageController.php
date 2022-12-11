@@ -135,7 +135,7 @@ class ImageController extends Controller
             $request,
             [
                 'name'      => 'required|string',
-                'pic'    => 'required|string',
+                'pic'       => 'required|string',
             ]
         );
 
@@ -183,10 +183,6 @@ class ImageController extends Controller
                 'pic'    => 'required|string',
             ]
         );
-
-        $attributes['pic'] = app('hash')->make($attributes['pic']);
-
-
         $image = app(FindImageByRouteKeyAction::class)
             ->execute($id);
 
