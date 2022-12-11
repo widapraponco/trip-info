@@ -10,6 +10,8 @@ use App\Models\Image;
 use App\Transformers\ImageTransformer;
 use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
+use Domain\Image\Actions\CreateImageAction;
+use Domain\Image\Actions\FindImageByRouteKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Log;
@@ -99,7 +101,7 @@ class ImageController extends Controller
     public function show(string $id)
     {
         return $this->fractal(
-            app(FindUserByRouteKeyAction::class)->execute($id, throw404: true),
+            app(FindImageByRouteKeyAction::class)->execute($id, throw404: true),
             new ImageTransformer()
         );
     }
@@ -182,7 +184,10 @@ class ImageController extends Controller
             ]
         );
 
-        $image = app(FindUserByRouteKeyAction::class)
+        $attributes['pic'] = app('hash')->make($attributes['pic']);
+
+
+        $image = app(FindImageByRouteKeyAction::class)
             ->execute($id);
 
         $image->update($attributes);
@@ -220,7 +225,7 @@ class ImageController extends Controller
 
     public function destroy(string $id)
     {
-        $image = app(FindUserByRouteKeyAction::class)
+        $image = app(FindImageByRouteKeyAction::class)
             ->execute($id);
 
         if (app('auth')->id() == $image->getKey()) {
