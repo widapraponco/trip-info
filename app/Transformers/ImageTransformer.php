@@ -52,9 +52,12 @@ class ImageTransformer extends BaseTransformer
     public function transform(Image $image)
     {
         $response = [
-            'id'        => self::forId($image),
-            'name'      => $image->name,
-            'pic'       => $image->pic,
+            'id'                    => self::forId($image),
+            'name'                  => $image->name,
+            'originalname'          => $image->originalname,
+            'originalextension'     => $image->originalextension,
+            'path'                  => $image->path,
+
         ];
 
         $response = $this->filterData(
