@@ -35,7 +35,7 @@ class ImageController extends Controller
      *              @OA\Property(
      *                  property="attributes", type="object",
      *                  @OA\Property(property="name", type="string", example="name 1"),
-     *                  @OA\Property(property="pic", type="string", example="pic 1")
+     *                  @OA\Property(property="pic", type="string", format="binary", example="pic 1")
      *              ),  
      *          )
      *      )
