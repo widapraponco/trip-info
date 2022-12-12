@@ -28,7 +28,7 @@ class DestinasiController extends Controller
      * )
      * 
      * @OA\Schema(
-     *      schema="destinasi__response_property",
+     *      schema="agentravel__response_property",
      *      @OA\Property(property="data",type="array",
      *          @OA\Items(
      *              @OA\Property(property="type", type="string", example="agentravel"),
@@ -67,7 +67,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/agentravel__response_property")
      *             )
      *         }
      *     ),
@@ -98,7 +98,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/agentravel__response_property")
      *             )
      *         }
      *     ),
@@ -121,7 +121,7 @@ class DestinasiController extends Controller
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *             @OA\Schema(ref="#/components/schemas/agentravel__request_property",)
      *         )
      *     ),
      *     @OA\Response(
@@ -130,7 +130,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/agentravel__response_property")
      *             )
      *         }
      *     ),
@@ -168,7 +168,7 @@ class DestinasiController extends Controller
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *             @OA\Schema(ref="#/components/schemas/agentravel__request_property",)
      *         )
      *     ),
      *     @OA\Response(
@@ -177,7 +177,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/agentravel__response_property")
      *             )
      *         }
      *     ),
@@ -216,7 +216,7 @@ class DestinasiController extends Controller
      *     @OA\RequestBody(
      *         @OA\MediaType(
      *             mediaType="application/json",
-     *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
+     *             @OA\Schema(ref="#/components/schemas/agentravel__request_property",)
      *         )
      *     ),
      *     @OA\Response(
@@ -225,7 +225,7 @@ class DestinasiController extends Controller
      *         content={
      *             @OA\MediaType(
      *                 mediaType="application/json",
-     *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
+     *                 @OA\Schema(ref="#/components/schemas/agentravel__response_property")
      *             )
      *         }
      *     ),
