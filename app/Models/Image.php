@@ -22,7 +22,9 @@ class Image extends Model {
         'originalname',
         'original',
         'originalextension',
-        'path'
+        'path',
+        'size',
+        'minetype',
     ];
 
     //public function employee()
