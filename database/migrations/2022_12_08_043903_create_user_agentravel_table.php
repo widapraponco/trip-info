@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('alamat');
             $table->string('contact_person');
             $table->string('rating');
-            $table->integer('destinasi_id');
+            $table->foreignId('destinasi_id')->constrained;
 
             $table->timestamps();
         });
