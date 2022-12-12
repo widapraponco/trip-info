@@ -25,6 +25,8 @@ use App\Transformers\BaseTransformer;
  *             @OA\Property(property="originalname", type="string"),
  *             @OA\Property(property="originalextension", type="string"),
  *             @OA\Property(property="path", type="string"),
+ *             @OA\Property(property="size", type="string"),
+ *             @OA\Property(property="minetype", type="string"),
  *         }),
  *         @OA\Property(property="relationships", type="array", @OA\Items({
  *
