@@ -10,6 +10,8 @@ use App\Models\Destinasi;
 use App\Transformers\DestinasiTransformer;
 use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
+use Domain\Destinasi\Actions\CreateDestinasiAction;
+use Domain\Destinasi\Actions\FindDestinasiByRouteKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Log;
@@ -105,7 +107,7 @@ class DestinasiController extends Controller
     public function show(string $id)
     {
         return $this->fractal(
-            app(FindUserByRouteKeyAction::class)->execute($id, throw404: true),
+            app(FindDestinasiByKeyAction::class)->execute($id, throw404: true),
             new DestinasiTransformer()
         );
     }
@@ -192,7 +194,7 @@ class DestinasiController extends Controller
             ]
         );
 
-        $destinasi = app(FindUserByRouteKeyAction::class)
+        $destinasi = app(FindDestinasiByKeyAction::class)
             ->execute($id);
 
         $destinasi->update($attributes);
@@ -230,7 +232,7 @@ class DestinasiController extends Controller
 
     public function destroy(string $id)
     {
-        $destinasi = app(FindUserByRouteKeyAction::class)
+        $destinasi = app(FindDestinasiByKeyAction::class)
             ->execute($id);
 
         if (app('auth')->id() == $destinasi->getKey()) {
