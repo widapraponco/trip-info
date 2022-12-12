@@ -90,7 +90,7 @@ class ImageController extends Controller
      *         description="ok",
      *         content={
      *             @OA\MediaType(
-     *                 mediaType="application/json",
+     *                 mediaType="multipart/form-data",
      *                 @OA\Schema(ref="#/components/schemas/image__response_property")
      *             )
      *         }
