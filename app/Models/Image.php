@@ -20,7 +20,9 @@ class Image extends Model {
     protected $fillable = [
         'name', 
         'originalname',
-        
+        'original',
+        'originalextension',
+        'path'
     ];
 
     //public function employee()
