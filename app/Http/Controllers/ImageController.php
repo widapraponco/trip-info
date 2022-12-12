@@ -201,7 +201,7 @@ class ImageController extends Controller
      *     @OA\Parameter(name="id", in="path", required=true,),
      *     @OA\RequestBody(
      *         @OA\MediaType(
-     *             mediaType="application/json",
+     *             mediaType="multipart/form-data",
      *             @OA\Schema(ref="#/components/schemas/image__request_property",)
      *         )
      *     ),
