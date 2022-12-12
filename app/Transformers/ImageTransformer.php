@@ -57,7 +57,8 @@ class ImageTransformer extends BaseTransformer
             'originalname'          => $image->originalname,
             'originalextension'     => $image->originalextension,
             'path'                  => $image->path,
-
+            'size'                  => $image->size,
+            'minetype'              => $image->minetype,
         ];
 
         $response = $this->filterData(
