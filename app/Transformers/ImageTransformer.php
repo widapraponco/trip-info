@@ -22,7 +22,9 @@ use App\Transformers\BaseTransformer;
  *         @OA\Property(property="attributes", type="object", properties={
  *
  *             @OA\Property(property="name", type="string"),
- *             @OA\Property(property="pic", type="string"),
+ *             @OA\Property(property="originalname", type="string"),
+ *             @OA\Property(property="originalextension", type="string"),
+ *             @OA\Property(property="path", type="string"),
  *         }),
  *         @OA\Property(property="relationships", type="array", @OA\Items({
  *
