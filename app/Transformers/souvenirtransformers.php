@@ -35,6 +35,6 @@ class souvenirtransformer extends BaseTransformer
 
     public function getResourceKey(): string
     {
-        return 'user_courses';
+        return 'souvenir';
     }
 }
