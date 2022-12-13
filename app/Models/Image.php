@@ -24,7 +24,7 @@ class Image extends Model {
         'originalextension',
         'path',
         'size',
-        'minetype',
+        'mimeType',
     ];
 
     //public function employee()
