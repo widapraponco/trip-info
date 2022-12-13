@@ -34,6 +34,7 @@ $router->group(
             function () use ($router) {
                 
                 require 'Image.php';
+                require 'Destinasi.php';
             }
         );
     }
