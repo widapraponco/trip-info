@@ -25,10 +25,10 @@ class souvenirtransformer extends BaseTransformer
             'nip'             => $souvenir->nip,
             'type'            => $souvenir->type,
             'category'        => $souvenir->category,
-            'organized_by'    => $courses->organized_by,
-            'year'            => $courses->year,
-            'certificate'     => $courses->certificate,
-            'other_info'      => $courses->other_info,
+            'organized_by'    => $souvenir->organized_by,
+            'year'            => $souvenir->year,
+            'certificate'     => $souvenir->certificate,
+            'other_info'      => $souvenir->other_info,
         ];
         return $response;
     }
