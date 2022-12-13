@@ -26,7 +26,7 @@ use App\Transformers\BaseTransformer;
  *             @OA\Property(property="originalextension", type="string"),
  *             @OA\Property(property="path", type="string"),
  *             @OA\Property(property="size", type="string"),
- *             @OA\Property(property="minetype", type="string"),
+ *             @OA\Property(property="mimeType", type="string"),
  *         }),
  *         @OA\Property(property="relationships", type="array", @OA\Items({
  *
@@ -62,7 +62,7 @@ class ImageTransformer extends BaseTransformer
             'originalextension'     => $image->originalextension,
             'path'                  => $image->path,
             'size'                  => $image->size,
-            'minetype'              => $image->minetype,
+            'mimeType'              => $image->mimeType,
         ];
 
         $response = $this->filterData(
