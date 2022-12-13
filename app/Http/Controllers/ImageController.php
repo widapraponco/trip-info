@@ -23,7 +23,11 @@ class ImageController extends Controller
      * @OA\Schema(
      *      schema="image__request_property",
      *      @OA\Property(property="name", type="string", example="name 1"),
-     *      @OA\Property(property="pic", type="string", format="binary", example="pic 1")
+     *      @OA\Property(property="originalname", type="string", example="originalname 1"),
+     *      @OA\Property(property="originalextension", type="string", example="originalextension 1"),
+     *      @OA\Property(property="path", type="string", example="path 1"),
+     *      @OA\Property(property="size", type="string", example="size 1"),
+     *      @OA\Property(property="mimeType", type="string", example="mimeType 1")
      * )
      * 
      * @OA\Schema(
@@ -35,7 +39,11 @@ class ImageController extends Controller
      *              @OA\Property(
      *                  property="attributes", type="object",
      *                  @OA\Property(property="name", type="string", example="name 1"),
-     *                  @OA\Property(property="pic", type="string", format="binary", example="pic 1")
+     *                  @OA\Property(property="originalname", type="string", example="originalname 1"),
+     *                  @OA\Property(property="originalextension", type="string", example="originalextension 1"),
+     *                  @OA\Property(property="path", type="string", example="path 1"),
+     *                  @OA\Property(property="size", type="string", example="size 1"),
+     *                  @OA\Property(property="mimeType", type="string", example="mimeType 1")
      *              ),  
      *          )
      *      )
@@ -53,13 +61,17 @@ class ImageController extends Controller
      *     @OA\Parameter(name="page", in="query", required=false,),
      *     @OA\Parameter(name="per_page", in="query", required=false,),
      *     @OA\Parameter(name="name", in="query", required=false,),
-     *     @OA\Parameter(name="pic", in="query", required=false,),
+     *     @OA\Parameter(name="originalname", in="query", required=false,),
+     *     @OA\Parameter(name="originalextension", in="query", required=false,),
+     *     @OA\Parameter(name="path", in="query", required=false,),
+     *     @OA\Parameter(name="size", in="query", required=false,),
+     *     @OA\Parameter(name="mimeType", in="query", required=false,),
      *     @OA\Response(
      *         response="200",
      *         description="ok",
      *         content={
      *             @OA\MediaType(
-     *                 mediaType="multipart/form-data",
+     *                 mediaType="application/json",
      *                 @OA\Schema(ref="#/components/schemas/image__response_property")
      *             )
      *         }
@@ -71,7 +83,7 @@ class ImageController extends Controller
     {
         return $this->fractal(
             QueryBuilder::for(Image::class)
-                ->allowedFilters(['name', 'pic'])
+                ->allowedFilters(['name', 'originalname', 'originalextension', 'path', 'size', 'mimeType'])
                 ->paginate(),
             new ImageTransformer()
         );
@@ -90,7 +102,7 @@ class ImageController extends Controller
      *         description="ok",
      *         content={
      *             @OA\MediaType(
-     *                 mediaType="multipart/form-data",
+     *                 mediaType="application/json",
      *                 @OA\Schema(ref="#/components/schemas/image__response_property")
      *             )
      *         }
@@ -113,7 +125,7 @@ class ImageController extends Controller
      *     tags={"Image"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
+     *             mediaType="application/json",
      *             @OA\Schema(ref="#/components/schemas/image__request_property",)
      *         )
      *     ),
@@ -122,7 +134,7 @@ class ImageController extends Controller
      *         description="ok",
      *         content={
      *             @OA\MediaType(
-     *                 mediaType="multipart/form-data",
+     *                 mediaType="application/json",
      *                 @OA\Schema(ref="#/components/schemas/image__response_property")
      *             )
      *         }
@@ -134,8 +146,12 @@ class ImageController extends Controller
         $attributes = $this->validate(
             $request,
             [
-                'name'      => 'required|string',
-                'pic'       => 'required|string',
+                'name'                  => 'required|string',
+                'originalname'          => 'required|string',
+                'originalextension'     => 'required|string',
+                'path'                  => 'required|string',
+                'size'                  => 'required|string',
+                'mimeType'              => 'required|string',
             ]
         );
 
@@ -157,7 +173,7 @@ class ImageController extends Controller
      *     @OA\Parameter(name="id", in="path", required=true,),
      *     @OA\RequestBody(
      *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
+     *             mediaType="application/json",
      *             @OA\Schema(ref="#/components/schemas/image__request_property",)
      *         )
      *     ),
@@ -166,7 +182,7 @@ class ImageController extends Controller
      *         description="ok",
      *         content={
      *             @OA\MediaType(
-     *                 mediaType="multipart/form-data",
+     *                 mediaType="application/json",
      *                 @OA\Schema(ref="#/components/schemas/image__response_property")
      *             )
      *         }
@@ -179,8 +195,12 @@ class ImageController extends Controller
         $attributes = $this->validate(
             $request,
             [
-                'name'      => 'required|string',
-                'pic'    => 'required|string',
+                'name'                  => 'required|string',
+                'originalname'          => 'required|string',
+                'originalextension'     => 'required|string',
+                'path'                  => 'required|string',
+                'size'                  => 'required|string',
+                'mimeType'              => 'required|string',
             ]
         );
         $image = app(FindImageByRouteKeyAction::class)
@@ -201,7 +221,7 @@ class ImageController extends Controller
      *     @OA\Parameter(name="id", in="path", required=true,),
      *     @OA\RequestBody(
      *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
+     *             mediaType="application/json",
      *             @OA\Schema(ref="#/components/schemas/image__request_property",)
      *         )
      *     ),
@@ -210,7 +230,7 @@ class ImageController extends Controller
      *         description="ok",
      *         content={
      *             @OA\MediaType(
-     *                 mediaType="multipart/form-data",
+     *                 mediaType="application/json",
      *                 @OA\Schema(ref="#/components/schemas/image__response_property")
      *             )
      *         }
