@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('originalextension');
             $table->string('path');
             $table->string('size');
-            $table->string('minetype');
+            $table->string('mimeType');
 
             $table->timestamps();
         });
