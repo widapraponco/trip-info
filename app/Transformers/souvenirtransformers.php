@@ -21,10 +21,10 @@ class souvenirtransformer extends BaseTransformer
     {
         $response = [
             
-            'id'              => self::forId($courses), 
-            'nip'             => $courses->nip,
-            'type'            => $courses->type,
-            'category'        => $courses->category,
+            'id'              => self::forId($souvenir), 
+            'nip'             => $souvenir->nip,
+            'type'            => $souvenir->type,
+            'category'        => $souvenir->category,
             'organized_by'    => $courses->organized_by,
             'year'            => $courses->year,
             'certificate'     => $courses->certificate,
