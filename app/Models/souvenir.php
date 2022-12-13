@@ -13,7 +13,7 @@ class UserCourses extends Model {
         'create'        => 'souvenir create',
         'read'          => 'souvenir read',
         'update'        => 'souvenir update',
-        'delete'        => 'souvenir delete',
+        'delete'        => 'souvenir delete'
     ];
 
     protected $fillable = [
