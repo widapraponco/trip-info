@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Domain\Destinasi\Actions;
 
-use App\Models\Auth\Destinasi\Destinasi;
+use App\Models\Destinasi;
 
-class FindDestinasiByRouteKeyAction
+class FindDestinasiByKeyAction
 {
     public function execute(string $routeKey, bool $throw404 = false): Destinasi
     {
