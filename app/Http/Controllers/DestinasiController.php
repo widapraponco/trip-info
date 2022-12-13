@@ -11,7 +11,7 @@ use App\Transformers\DestinasiTransformer;
 use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
 use Domain\Destinasi\Actions\CreateDestinasiAction;
-use Domain\Destinasi\Actions\FindDestinasiByRouteKeyAction;
+use Domain\Destinasi\Actions\FindDestinasiByKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Log;
@@ -101,7 +101,6 @@ class DestinasiController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
     public function show(string $id)
@@ -156,7 +155,6 @@ class DestinasiController extends Controller
 
     /**
      * @api                {put} /destinasi
-     * @apiPermission      Authenticated User
      * 
      * @OA\Put(
      *     path="/destinasi/{id}",
@@ -179,7 +177,6 @@ class DestinasiController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
     public function update(Request $request, string $id)
@@ -204,7 +201,6 @@ class DestinasiController extends Controller
 
     /**
      * @api                {delete} /auth/users/{id} Destroy user
-     * @apiPermission      Authenticated User
      * @OA\Delete(
      *     path="/destinasi/{id}",
      *     summary="Delete destinasi",
@@ -226,7 +222,6 @@ class DestinasiController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
 
