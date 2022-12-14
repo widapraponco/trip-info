@@ -25,6 +25,8 @@ return new class extends Migration
             $table-> string (deskripsi);
 
             $table-> string (contact_person);
+
+            $table-> int (rating);
         });
     }
 
