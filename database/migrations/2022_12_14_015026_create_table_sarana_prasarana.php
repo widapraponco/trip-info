@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table-> string (fungsional & nonfungsional);
 
-            $table->timestamps();
+            $table-> string (deskripsi);
         });
     }
 
