@@ -23,6 +23,8 @@ return new class extends Migration
             $table-> string (fungsional & nonfungsional);
 
             $table-> string (deskripsi);
+
+            $table-> string (contact_person);
         });
     }
 
