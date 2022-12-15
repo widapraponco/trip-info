@@ -21,5 +21,10 @@ class Destinasi extends Model {
         'alamat',
         'deskripsi',
         'kota_id'
-    ];   
+    ];
+
+    public function FunctionName(Type $var = null)
+    {
+        # code...
+    }
 }
