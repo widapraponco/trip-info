@@ -149,10 +149,13 @@ class DestinasiController extends Controller
 
         function images(array $files, string $destination)
         {
-            $image=[];
-            foreach ($variable as $key => $value) {
-                # code...
+            $images=[];
+            foreach ($files as $key => $value) {
+                if(empty($value))continue;
+
+                $images[] = $this->images($value, $destination, $key);
             }
+            return $images;
         }
 
         return $this->fractal(
