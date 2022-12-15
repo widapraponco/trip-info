@@ -12,5 +12,7 @@ $router->group(
         $router->post('/sarana_prasarana', ['uses'=> 'sarana_prasaranaController@store',]);
         $router->get('/sarana_prasarana', ['uses' => 'sarana_prasaranaController@index',]);
         $router->get('/sarana_prasarana/{id}', ['uses' => 'sarana_prasaranaController@show',]);
+        $router->put('/sarana_prasarana/{id}', ['uses'=> 'sarana_prasaranaController@update',]);
+
     }
 );
