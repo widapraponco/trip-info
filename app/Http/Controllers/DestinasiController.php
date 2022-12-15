@@ -173,7 +173,12 @@ class DestinasiController extends Controller
             ]);
 
             $image = Image::create([
-                
+                'name' => $request->hashName(),
+                'originalName' => $request->getClientoriginalName(),
+                'originalExtension' => $request->getClientoriginalExtension(),
+                'mimeType' => $request->getClientmimeType(),
+                'size' => $request->getSize(),
+                'path' => $path()
             ]);
         }
 
