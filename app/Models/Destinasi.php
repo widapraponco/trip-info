@@ -25,6 +25,6 @@ class Destinasi extends Model {
 
     public function image()
     {
-        # code...
+        return $this->belongsToMany(Image::class);
     }
 }
