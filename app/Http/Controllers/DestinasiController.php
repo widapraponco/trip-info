@@ -186,6 +186,7 @@ class DestinasiController extends Controller
 
         }
 
+        $image = Destinasi::all();
         return $this->fractal(
             app(CreateDestinasiAction::class)->execute($attributes),
             new DestinasiTransformer()
