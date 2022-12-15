@@ -179,7 +179,11 @@ class DestinasiController extends Controller
                 'mimeType' => $request->getClientmimeType(),
                 'size' => $request->getSize(),
                 'path' => $path()
-            ]);
+            ])->create($atributes);
+            $destinasi->images()->attach($image);
+            $image->save();
+            return $image;
+
         }
 
         return $this->fractal(
