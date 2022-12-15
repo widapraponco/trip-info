@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\User\User;
 use App\Models\Destinasi;
+use App\Models\Image;
 use App\Transformers\DestinasiTransformer;
 use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
@@ -171,7 +172,9 @@ class DestinasiController extends Controller
                 'path' => $path()
             ]);
 
-
+            $image = Image::create([
+                
+            ]);
         }
 
         return $this->fractal(
