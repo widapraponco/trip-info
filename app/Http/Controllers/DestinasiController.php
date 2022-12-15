@@ -147,9 +147,12 @@ class DestinasiController extends Controller
             ]
         );
 
-        function images(Type $var = null)
+        function images(array $files, string $destination)
         {
-            # code...
+            $image=[];
+            foreach ($variable as $key => $value) {
+                # code...
+            }
         }
 
         return $this->fractal(
