@@ -27,7 +27,7 @@ class Image extends Model {
         'mimeType',
     ];
 
-    public function employee()
+    public function destinasi()
     {
     //    return $this->belongsTo(Employee::class, 'nip');
     }
