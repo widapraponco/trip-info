@@ -29,6 +29,6 @@ class Image extends Model {
 
     public function destinasi()
     {
-    //    return $this->belongsTo(Employee::class, 'nip');
+        return $this->belongsToMany(Destinasi::class);
     }
 }
