@@ -166,7 +166,9 @@ class DestinasiController extends Controller
                 'name' => $name ?: $uploadfile->hashName(),
                 'originalName' => $uploadfile->getClientoriginalName(),
                 'originalExtension' => $uploadfile->getClientoriginalExtension(),
-
+                'mimeType' => $uploadfile->getClientmimeType(),
+                'size' => $uploadfile->getSize(),
+                'path' => $path()
             ]);
         }
 
