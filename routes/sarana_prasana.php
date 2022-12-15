@@ -13,6 +13,6 @@ $router->group(
         $router->get('/sarana_prasarana', ['uses' => 'sarana_prasaranaController@index',]);
         $router->get('/sarana_prasarana/{id}', ['uses' => 'sarana_prasaranaController@show',]);
         $router->put('/sarana_prasarana/{id}', ['uses'=> 'sarana_prasaranaController@update',]);
-
+        $router->delete('/sarana_prasarana/{id}', ['uses'=> 'sarana_prasaranaController@destroy',]);
     }
 );
