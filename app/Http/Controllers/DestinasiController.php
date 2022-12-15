@@ -158,9 +158,10 @@ class DestinasiController extends Controller
             return $images;
         }
 
-        function imagefile(Type $var = null)
+        function imagefile(UploadedFile $uploadFile, string $destination, string $name =null)
         {
-            # code...
+            $path = $uploadFile->store($destination);// : $uploadfile->storeAs($destination.$name-'-'-$uploadfile->getgetClientoriginalName())
+            
         }
 
         return $this->fractal(
