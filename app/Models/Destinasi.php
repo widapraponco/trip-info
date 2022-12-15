@@ -23,7 +23,7 @@ class Destinasi extends Model {
         'kota_id'
     ];
 
-    public function FunctionName(Type $var = null)
+    public function image()
     {
         # code...
     }
