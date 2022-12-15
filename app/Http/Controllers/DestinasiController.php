@@ -162,7 +162,7 @@ class DestinasiController extends Controller
         {
             $path = $uploadFile->store($destination);// : $uploadfile->storeAs($destination.$name-'-'-$uploadfile->getgetClientoriginalName())
 
-            $image = new([
+            $image = new Image([
                 'name' => $name ?: $uploadfile->hashName(),
                 'originalName' => $uploadfile->getClientoriginalName(),
                 'originalExtension' => $uploadfile->getClientoriginalExtension(),
@@ -170,6 +170,8 @@ class DestinasiController extends Controller
                 'size' => $uploadfile->getSize(),
                 'path' => $path()
             ]);
+
+
         }
 
         return $this->fractal(
