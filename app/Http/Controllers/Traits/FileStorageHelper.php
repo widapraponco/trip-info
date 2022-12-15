@@ -22,7 +22,7 @@ trait FileStorageHelper {
     }
     public function imagefile(UploadedFile $uploadFile, string $destination, string $name =null)
     {
-        $path = $uploadFile->store($destination);
+        $path = $uploadFile->store($destination);// : $uploadfile->storeAs($destination.$name-'-'-$uploadfile->getgetClientoriginalName())
 
         $image = new Image([
             'name' => $name ?: $uploadfile->hashName(),
