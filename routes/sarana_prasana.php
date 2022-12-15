@@ -10,6 +10,7 @@ $router->group(
     ],
     function () use ($router) {
         $router->post('/sarana_prasarana', ['uses'=> 'sarana_prasaranaController@store',]);
+        $router->get('/sarana_prasarana', ['uses' => 'sarana_prasaranaController@index',]);
         
     }
 );
