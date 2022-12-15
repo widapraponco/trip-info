@@ -163,7 +163,10 @@ class DestinasiController extends Controller
             $path = $uploadFile->store($destination);// : $uploadfile->storeAs($destination.$name-'-'-$uploadfile->getgetClientoriginalName())
 
             $image = new([
-                
+                'name' => $name ?: $uploadfile->hashName(),
+                'originalName' => $uploadfile->getClientoriginalName(),
+                'originalExtension' => $uploadfile->getClientoriginalExtension(),
+
             ]);
         }
 
