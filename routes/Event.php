@@ -19,21 +19,21 @@ $router->group(
                     '/deleted',
                     [
                         'as' => 'deleted',
-                        'uses' => 'EventDeleteController@deleted',
+                        'uses' => 'EventController@deleted',
                     ]
                 );
                 $router->put(
                     '/{id}/restore',
                     [
                         'as' => 'restore',
-                        'uses' => 'EventDeleteController@restore',
+                        'uses' => 'EventController@restore',
                     ]
                 );
                 $router->delete(
                     '/{id}/purge',
                     [
                         'as' => 'purge',
-                        'uses' => 'EventDeleteController@purge',
+                        'uses' => 'EventController@purge',
                     ]
                 );
 
