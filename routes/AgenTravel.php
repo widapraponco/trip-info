@@ -9,6 +9,6 @@ $router->group(
         $router->get('/agentravel', ['uses' => 'AgenTravelController@find',]);
         $router->get('/agentravel/{id}', ['uses' => 'AgenTravelController@findById',]);
         $router->put('/agentravel/{id}', ['uses'=> 'AgenTravelController@update',]);
-        $router->delete('/agentravvel/{id}', ['uses'=> 'AgenTravelController@destroy',]);
+        $router->delete('/agentravel/{id}', ['uses'=> 'AgenTravelController@destroy',]);
     }
 );

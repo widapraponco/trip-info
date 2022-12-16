@@ -15,7 +15,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Log;
 
 
-class AganTravelController extends Controller
+class AgenTravelController extends Controller
 {
     /** 
      * @OA\Schema(
