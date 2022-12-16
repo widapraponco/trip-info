@@ -9,10 +9,71 @@ $router->group(
         'as' => 'events',
     ],
     function () use ($router) {
-        $router->post('/event', ['uses'=> 'EventController@store',]);
-        $router->get('/event', ['uses' => 'EventController@index',]);
-        $router->get('/event/{id}', ['uses' => 'EventController@show',]);
-        $router->put('/event/{id}', ['uses'=> 'EventController@update',]);
-        $router->delete('/event/{id}', ['uses'=> 'EventController@destroy',]);
+        $router->group(
+            [
+                'prefix' => 'events',
+            ],
+            function () use ($router) {
+                // deletes
+                $router->get(
+                    '/deleted',
+                    [
+                        'as' => 'deleted',
+                        'uses' => 'EventController@deleted',
+                    ]
+                );
+                $router->put(
+                    '/{id}/restore',
+                    [
+                        'as' => 'restore',
+                        'uses' => 'EventController@restore',
+                    ]
+                );
+                $router->delete(
+                    '/{id}/purge',
+                    [
+                        'as' => 'purge',
+                        'uses' => 'EventController@purge',
+                    ]
+                );
+
+                // resources
+                $router->get(
+                    '/',
+                    [
+                        'as' => 'index',
+                        'uses' => 'EventController@index',
+                    ]
+                );
+                $router->post(
+                    '/',
+                    [
+                        'as' => 'store',
+                        'uses' => 'EventController@store',
+                    ]
+                );
+                $router->get(
+                    '/{id}',
+                    [
+                        'as' => 'show',
+                        'uses' => 'EventController@show',
+                    ]
+                );
+                $router->put(
+                    '/{id}',
+                    [
+                        'as' => 'update',
+                        'uses' => 'EventController@update',
+                    ]
+                );
+                $router->delete(
+                    '/{id}',
+                    [
+                        'as' => 'destroy',
+                        'uses' => 'EventController@destroy',
+                    ]
+                );
+            }
+        );
     }
 );
