@@ -26,5 +26,13 @@ $router->group(
                 require 'v1/v1.php';
             }
         );
+        $router->group(
+            [
+            
+            ],
+            function () use ($router) {
+                require 'v1/sarana_prasarana.php';
+            }
+        );
     }
 );
