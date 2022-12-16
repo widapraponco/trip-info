@@ -8,14 +8,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth\User\User;
 use App\Models\AgenTravel;
 use App\Transformers\AgenTravelTransformer;
-use Domain\User\Actions\CreateUserAction;
-use Domain\User\Actions\FindUserByRouteKeyAction;
+use Domain\User\Actions\CreateAgenTravelAction;
+use Domain\User\Actions\FindAgenTravelByRouteKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Log;
 
 
-class DestinasiController extends Controller
+class AganTravelController extends Controller
 {
     /** 
      * @OA\Schema(
@@ -24,7 +24,7 @@ class DestinasiController extends Controller
      *      @OA\Property(property="alamat", type="string", example="alamat 1"),
      *      @OA\Property(property="contact_person", type="string", example="contact_person 1"),
      *      @OA\Property(property="rating", type="string", example="rating 1"),
-     *      @OA\Property(property="destinasi_id", type="integer", example="1")
+     *      @OA\Property(property="destinasi_id", type="string", example="1")
      * )
      * 
      * @OA\Schema(
@@ -39,13 +39,13 @@ class DestinasiController extends Controller
      *                  @OA\Property(property="alamat", type="string", example="alamat 1"),
      *                  @OA\Property(property="contact_person", type="string", example="contact_person 1"),
      *                  @OA\Property(property="rating", type="string", example="rating 1"),
-     *                  @OA\Property(property="destinasi_id", type="integer", example="1")
+     *                  @OA\Property(property="destinasi_id", type="string", example="1")
      *              ),  
      *          )
      *      )
      * )
      * 
-     * issue: https://github.com/zircote/swagger-php/issues/695 (swagger doesn't accep square bracket)
+     * issue: http://github.com/zircote/swagger-php/issues/695 (swagger doesn't accep square bracket)
      */
 
      
@@ -102,13 +102,13 @@ class DestinasiController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
+     *     
      * )
      */
     public function show(string $id)
     {
         return $this->fractal(
-            app(FindUserByRouteKeyAction::class)->execute($id, throw404: true),
+            app(FindAgenTravelByRouteKeyAction::class)->execute($id, throw404: true),
             new AgenTravelTransformer()
         );
     }
@@ -145,7 +145,7 @@ class DestinasiController extends Controller
                 'alamat'    => 'required|string',
                 'contact_person' => 'required|string',
                 'rating' => 'required|string',
-                'destinasi_id'   => 'required|integer',
+                'destinasi_id'   => 'required|string',
             ]
         );
 
@@ -181,7 +181,7 @@ class DestinasiController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
+     *    
      * )
      */
     public function update(Request $request, string $id)
@@ -193,11 +193,11 @@ class DestinasiController extends Controller
                 'alamat'    => 'required|string',
                 'contact_person' => 'required|string',
                 'rating'    => 'required|string',
-                'destinasi_id'   => 'required|integer',
+                'destinasi_id'   => 'required|string',
             ]
         );
 
-        $agentravel = app(FindUserByRouteKeyAction::class)
+        $agentravel = app(FindAgenTravelByRouteKeyAction::class)
             ->execute($id);
 
         $agentravel->update($attributes);
@@ -229,13 +229,13 @@ class DestinasiController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
+     *     
      * )
      */
 
     public function destroy(string $id)
     {
-        $agentravel = app(FindUserByRouteKeyAction::class)
+        $agentravel = app(FindAgenTravelByRouteKeyAction::class)
             ->execute($id);
 
         if (app('auth')->id() == $agentravel->getKey()) {
