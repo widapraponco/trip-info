@@ -21,5 +21,10 @@ class Destinasi extends Model {
         'alamat',
         'deskripsi',
         'kota_id'
-    ];   
+    ];
+
+    public function image()
+    {
+        return $this->belongsToMany(Image::class);
+    }
 }

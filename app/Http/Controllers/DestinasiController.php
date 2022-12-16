@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\User\User;
 use App\Models\Destinasi;
+use App\Models\Image;
 use App\Transformers\DestinasiTransformer;
 use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
@@ -25,7 +26,8 @@ class DestinasiController extends Controller
      *      @OA\Property(property="nama", type="string", example="nama 1"),
      *      @OA\Property(property="alamat", type="string", example="alamat 1"),
      *      @OA\Property(property="deskripsi", type="string", example="deskripsi 1"),
-     *      @OA\Property(property="kota_id", type="integer", example="1")
+     *      @OA\Property(property="kota_id", type="integer", example="1"),
+     *      @OA\Property(property="pic", type="string", format="binary", example="pic 1")
      * )
      * 
      * @OA\Schema(
@@ -39,7 +41,8 @@ class DestinasiController extends Controller
      *                  @OA\Property(property="nama", type="string", example="nama 1"),
      *                  @OA\Property(property="alamat", type="string", example="alamat 1"),
      *                  @OA\Property(property="deskripsi", type="string", example="deskripsi 1"),
-     *                  @OA\Property(property="kota_id", type="integer", example="1")
+     *                  @OA\Property(property="kota_id", type="integer", example="1"),
+     *                  @OA\Property(property="pic", type="string", format="binary", example="pic 1")
      *              ),  
      *          )
      *      )
@@ -60,6 +63,7 @@ class DestinasiController extends Controller
      *     @OA\Parameter(name="alamat", in="query", required=false,),
      *     @OA\Parameter(name="deskripsi", in="query", required=false,),
      *     @OA\Parameter(name="kota_id", in="query", required=false,),
+     *     @OA\Parameter(name="pic", in="query", required=false,),
      *     @OA\Response(
      *         response="200",
      *         description="ok",
@@ -118,7 +122,7 @@ class DestinasiController extends Controller
      *     tags={"Destinasi"},
      *     @OA\RequestBody(
      *         @OA\MediaType(
-     *             mediaType="application/json",
+     *             mediaType="multipart/form-data",
      *             @OA\Schema(ref="#/components/schemas/destinasi__request_property",)
      *         )
      *     ),
@@ -127,7 +131,7 @@ class DestinasiController extends Controller
      *         description="ok",
      *         content={
      *             @OA\MediaType(
-     *                 mediaType="application/json",
+     *                 mediaType="multipart/form-data",
      *                 @OA\Schema(ref="#/components/schemas/destinasi__response_property")
      *             )
      *         }
@@ -146,6 +150,42 @@ class DestinasiController extends Controller
             ]
         );
 
+        function images(array $files, string $destination)
+        {
+            $images = [];
+            foreach($files as $key => $value){
+                if (empty($value)) continue;
+    
+                $images[] = $this->images($value, $destination, $key);
+            }
+            return $images;
+        }
+        function imagefile(UploadedFile $uploadFile, string $destination, string $name =null)
+        {
+            $path = $uploadFile->store($destination);// : $uploadfile->storeAs($destination.$name-'-'-$uploadfile->getgetClientoriginalName())
+    
+            $image = new Image([
+                'name' => $name ?: $uploadfile->hashName(),
+                'originalName' => $uploadfile->getClientoriginalName(),
+                'originalExtension' => $uploadfile->getClientoriginalExtension(),
+                'mimeType' => $uploadfile->getClientmimeType(),
+                'size' => $uploadfile->getSize(),
+                'path' => $path()
+            ]);
+            $image = Image::create([
+                'name' => $request->hashName(),
+                'originalName' => $request->getClientoriginalName(),
+                'originalExtension' => $request->getClientoriginalExtension(),
+                'mimeType' => $request->getClientmimeType(),
+                'size' => $request->getSize(),
+                'path' => $path()
+            ])->create($atributes);
+            $destinasi->images()->attach($image);
+            $image->save();
+            return $image;
+        }
+
+        $image = Destinasi::all();
         return $this->fractal(
             app(CreateDestinasiAction::class)->execute($attributes),
             new DestinasiTransformer()
