@@ -10,8 +10,11 @@ use App\Models\Event;
 use App\Transformers\EventTransformer;
 use Domain\User\Actions\CreateUserAction;
 use Domain\User\Actions\FindUserByRouteKeyAction;
+use Domain\Event\Actions\CreateEventAction;
+use Domain\Event\Actions\FindEventByKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Log;
 
 class EventController extends Controller
 {
