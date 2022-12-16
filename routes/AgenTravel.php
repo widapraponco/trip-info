@@ -2,13 +2,13 @@
 
 $router->group(
     [
-        'as' => 'destinasi',
+        'as' => 'agentravel',
     ],
     function () use ($router) {
-        $router->post('/agentravel', ['middleware' => ['auth'], 'uses'=> 'AgenTravelController@create',]);
-        $router->get('/agentravel', ['uses' => 'DestinasiController@find',]);
-        $router->get('/agentravel/{id}', ['middleware' => ['auth'], 'uses' => 'AgenTravelController@findById',]);
-        $router->put('/agentravel/{id}', ['middleware' => ['auth'], 'uses'=> 'AgenTravelController@update',]);
-        $router->delete('/agentravvel/{id}', ['middleware' => ['auth'], 'uses'=> 'AgenTravelController@destroy',]);
+        $router->post('/agentravel', ['uses'=> 'AgenTravelController@create',]);
+        $router->get('/agentravel', ['uses' => 'AgenTravelController@find',]);
+        $router->get('/agentravel/{id}', ['uses' => 'AgenTravelController@findById',]);
+        $router->put('/agentravel/{id}', ['uses'=> 'AgenTravelController@update',]);
+        $router->delete('/agentravvel/{id}', ['uses'=> 'AgenTravelController@destroy',]);
     }
 );
