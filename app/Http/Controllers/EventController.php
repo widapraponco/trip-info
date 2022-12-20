@@ -8,10 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth\User\User;
 use App\Models\Event;
 use App\Transformers\EventTransformer;
-use Domain\User\Actions\CreateUserAction;
-use Domain\User\Actions\FindUserByRouteKeyAction;
 use Domain\Event\Actions\CreateEventAction;
-use Domain\Event\Actions\FindEventByKeyAction;
+use Domain\Event\Actions\FindEventByRouteKeyAction;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Log;
@@ -39,12 +37,12 @@ class EventController extends Controller
      *              @OA\Property(property="id", type="string", example="1"),
      *              @OA\Property(
      *                  property="attributes", type="object",
-     *                  @OA\Property(property="destinasi_id", type="string", example="destinasi_id 1"),
+     *                  @OA\Property(property="destinasi_id", type="integer", example="destinasi_id 1"),
      *                  @OA\Property(property="nama", type="string", example="nama 1"),
-     *                  @OA\Property(property="tanggal_pelaksanaan", type="string", example="tanggal_pelaksanaan 1"),
+     *                  @OA\Property(property="tanggal_pelaksanaan", type="date", example="tanggal_pelaksanaan 1"),
      *                  @OA\Property(property="jam_mulai", type="integer", example="jam_mulai1"),
-     *                  @OA\Property(property="jam_berakhir", type="string", example="jam_berakhir 1"),
-     *                  @OA\Property(property="tanggal_selesai", type="string", example="tanggal_selesai 1"),
+     *                  @OA\Property(property="jam_berakhir", type="integer", example="jam_berakhir 1"),
+     *                  @OA\Property(property="tanggal_selesai", type="date", example="tanggal_selesai 1"),
      *                  @OA\Property(property="contact_person", type="string", example="contact_person 1"),
      *                  @OA\Property(property="rating", type="integer", example="rating 1")
      *              ),  
@@ -54,18 +52,6 @@ class EventController extends Controller
      * 
      * issue: https://github.com/zircote/swagger-php/issues/695 (swagger doesn't accep square bracket)
      */
-
-    public function __construct()
-    {
-        $permissions = User::PERMISSIONS;
-
-        $this->middleware('permission:'.$permissions['index'], ['only' => 'index']);
-        $this->middleware('permission:'.$permissions['create'], ['only' => 'store']);
-        $this->middleware('permission:'.$permissions['show'], ['only' => 'show']);
-        $this->middleware('permission:'.$permissions['update'], ['only' => 'update']);
-        $this->middleware('permission:'.$permissions['destroy'], ['only' => 'destroy']);
-    }
-    
 
     /**
      * @OA\Get(
@@ -123,13 +109,12 @@ class EventController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
     public function show(string $id)
     {
         return $this->fractal(
-            app(FindUserByRouteKeyAction::class)->execute($id, throw404: true),
+            app(FindEventByRouteKeyAction::class)->execute($id, throw404: true),
             new EventTransformer()
         );
     }
@@ -155,7 +140,6 @@ class EventController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
     public function store(Request $request)
@@ -176,7 +160,7 @@ class EventController extends Controller
         );
 
         return $this->fractal(
-            app(CreateUserAction::class)->execute($attributes),
+            app(CreateEventAction::class)->execute($attributes),
             new EventTransformer()
         )
             ->respond(201);
@@ -207,7 +191,6 @@ class EventController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
     public function update(Request $request, string $id)
@@ -227,7 +210,7 @@ class EventController extends Controller
             ]
         );
 
-        $event = app(FindUserByRouteKeyAction::class)
+        $event = app(FindEventByRouteKeyAction::class)
             ->execute($id);
 
         $event->update($attributes);
@@ -259,13 +242,12 @@ class EventController extends Controller
      *             )
      *         }
      *     ),
-     *     security={{"authorization":{}}}
      * )
      */
 
     public function destroy(string $id)
     {
-        $event = app(FindUserByRouteKeyAction::class)
+        $event = app(FindEventByRouteKeyAction::class)
             ->execute($id);
 
         if (app('auth')->id() == $event->getKey()) {
