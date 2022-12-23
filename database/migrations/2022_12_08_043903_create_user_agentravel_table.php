@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_agentravel', function (Blueprint $table) {
+        Schema::create('agentravel', function (Blueprint $table) {
             $table->id();
 
             $table->string('nama');
             $table->string('alamat');
             $table->string('contact_person');
             $table->string('rating');
-            $table->foreignId('destinasi_id')->constrained;
 
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_agentravel');
+        Schema::dropIfExists('agentravel');
     }
 };
