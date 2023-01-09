@@ -204,6 +204,6 @@ return [
      */
     'constants' => [
         'SWAGGER_LUME_TITLE' => env('APP_NAME', 'Lumen Boilerplate'),
-        'SWAGGER_LUME_CONST_HOST' => env('SWAGGER_LUME_CONST_HOST', env('APP_URL', 'http://localhost:8000')),
+        'SWAGGER_LUME_CONST_HOST' => env('SWAGGER_LUME_CONST_HOST', env('APP_URL', 'https://localhost:8000')),
     ],
 ];
