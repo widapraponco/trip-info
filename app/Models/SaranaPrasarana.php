@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class SaranaPrasarana extends Model {
     
     protected $table = 'SaranaPrasarana';
-    public $description = 'Fasilitas';
+    public $description = 'sarana_prasarana';
 
     public const PERMISSIONS = [
-        'create'        => 'participant create',
-        'read'          => 'participant read',
-        'update'        => 'participant update',
-        'delete'        => 'participant delete',
+        'create'        => 'sarana_prasarana create',
+        'read'          => 'sarana_prasarana read',
+        'update'        => 'sarana_prasarana update',
+        'delete'        => 'sarana_prasarana delete',
     ];
 
     protected $fillable = [

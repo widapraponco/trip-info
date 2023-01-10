@@ -31,7 +31,7 @@ $router->group(
             
             ],
             function () use ($router) {
-                require 'v1/sarana_prasarana.php';
+                require 'sarana_prasarana.php';
             }
         );
     }

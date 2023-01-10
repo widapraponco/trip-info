@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table-> string (nama);
 
-            $table-> string (fungsional & nonfungsional);
+            $table-> string (fungsional_nonfungsional);
 
             $table-> string (deskripsi);
 
